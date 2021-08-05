@@ -1,4 +1,4 @@
-import {color as Color} from 'chart.js/helpers';
+import {color as Color} from 'chart.js-v3/helpers';
 
 function fallback(/* values ... */) {
   var ilen = arguments.length;

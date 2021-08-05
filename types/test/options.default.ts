@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart} from 'chart.js-v3';
 import {Options} from '../options';
 
 const options: Options = {

@@ -1,4 +1,4 @@
-import {Chart, ChartDataset} from 'chart.js';
+import {Chart, ChartDataset} from 'chart.js-v3';
 
 /**
  * The context is used to give contextual information when resolving options.

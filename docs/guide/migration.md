@@ -48,7 +48,7 @@ Make sure to also read the [Chart.js v3 migration guide](https://www.chartjs.org
 Chart.js v3 changed the way to register plugins and now requires to use `Chart.register(plugin)` instead of `Chart.plugins.register(plugin)`.
 
 ```js
-import {Chart} from 'chart.js';
+import {Chart} from 'chart.js-v3';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 Chart.register(ChartDataLabels);

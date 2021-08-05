@@ -1,4 +1,4 @@
-import {ArcElement, BarElement, defaults, PointElement} from 'chart.js';
+import {ArcElement, BarElement, defaults, PointElement} from 'chart.js-v3';
 import {
   callback as callbackHelper,
   isNullOrUndef,
@@ -7,7 +7,7 @@ import {
   toFont,
   toPadding,
   valueOrDefault
-} from 'chart.js/helpers';
+} from 'chart.js-v3/helpers';
 
 import utils from './utils';
 import positioners from './positioners';

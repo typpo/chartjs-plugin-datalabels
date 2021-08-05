@@ -1,4 +1,4 @@
-import {ChartType, Plugin} from 'chart.js';
+import {ChartType, Plugin} from 'chart.js-v3';
 import {Options} from './options';
 
 declare module 'chart.js' {

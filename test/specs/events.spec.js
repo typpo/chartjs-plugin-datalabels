@@ -1,4 +1,4 @@
-import {clone} from 'chart.js/helpers';
+import {clone} from 'chart.js-v3/helpers';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('events', function() {

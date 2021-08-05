@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart} from 'chart.js-v3';
 
 const chart = new Chart('id', {
   type: 'bar',

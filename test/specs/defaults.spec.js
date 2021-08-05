@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart} from 'chart.js-v3';
 import plugin from 'chartjs-plugin-datalabels';
 
 describe('defaults.js', function() {
