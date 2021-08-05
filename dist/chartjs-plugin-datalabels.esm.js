@@ -4,8 +4,9 @@
  * (c) 2017-2021 chartjs-plugin-datalabels contributors
  * Released under the MIT license
  */
-import { isNullOrUndef, merge, toFont, resolve, toPadding, valueOrDefault, callback, isObject, each } from 'chart.js-v3/helpers';
-import { defaults as defaults$1, ArcElement, PointElement, BarElement } from 'chart.js-v3';
+import ChartJsV3, { defaults as defaults$1, ArcElement, PointElement, BarElement } from 'chart.js-v3';
+
+const {isNullOrUndef: isNullOrUndef$2} = ChartJsV3.helpers;
 
 var devicePixelRatio = (function() {
   if (typeof window !== 'undefined') {
@@ -38,7 +39,7 @@ var utils = {
         lines.unshift.apply(lines, input.split('\n'));
       } else if (Array.isArray(input)) {
         inputs.push.apply(inputs, input);
-      } else if (!isNullOrUndef(inputs)) {
+      } else if (!isNullOrUndef$2(inputs)) {
         lines.unshift('' + input);
       }
     }
@@ -352,6 +353,16 @@ var positioners = {
   }
 };
 
+const {
+  isNullOrUndef: isNullOrUndef$1,
+  merge: merge$2,
+  resolve,
+  toFont,
+  toPadding,
+  valueOrDefault
+} = ChartJsV3.helpers;
+const callbackHelper$1 = ChartJsV3.helpers.callback;
+
 var rasterize = utils.rasterize;
 
 function boundingRects(model) {
@@ -576,7 +587,7 @@ var Label = function(config, ctx, el, index) {
   me._el = el;
 };
 
-merge(Label.prototype, {
+merge$2(Label.prototype, {
   /**
    * @private
    */
@@ -629,8 +640,8 @@ merge(Label.prototype, {
 
     if (display) {
       value = context.dataset.data[index];
-      label = valueOrDefault(callback(config.formatter, [value, context]), value);
-      lines = isNullOrUndef(label) ? [] : utils.toTextLines(label);
+      label = valueOrDefault(callbackHelper$1(config.formatter, [value, context]), value);
+      lines = isNullOrUndef$1(label) ? [] : utils.toTextLines(label);
 
       if (lines.length) {
         model = me._modelize(display, lines, config, context);
@@ -693,6 +704,8 @@ merge(Label.prototype, {
   }
 });
 
+const {merge: merge$1} = ChartJsV3.helpers;
+
 var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
 var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
 
@@ -752,7 +765,7 @@ var HitBox = function() {
   };
 };
 
-merge(HitBox.prototype, {
+merge$1(HitBox.prototype, {
   center: function() {
     var r = this._rect;
     return {
@@ -1014,6 +1027,8 @@ var layout = {
   }
 };
 
+const {isNullOrUndef, isObject} = ChartJsV3.helpers;
+
 var formatter = function(value) {
   if (isNullOrUndef(value)) {
     return null;
@@ -1083,6 +1098,8 @@ var defaults = {
 /**
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
+const {each, merge} = ChartJsV3.helpers;
+const callbackHelper = ChartJsV3.helpers.callback;
 
 var EXPANDO_KEY = '$datalabels';
 var DEFAULT_KEY = '$default';
@@ -1144,18 +1161,18 @@ function dispatchEvent(chart, listeners, label) {
 
   var context = label.$context;
   var groups = label.$groups;
-  var callback$1;
+  var callback;
 
   if (!listeners[groups._set]) {
     return;
   }
 
-  callback$1 = listeners[groups._set][groups._key];
-  if (!callback$1) {
+  callback = listeners[groups._set][groups._key];
+  if (!callback) {
     return;
   }
 
-  if (callback(callback$1, [context]) === true) {
+  if (callbackHelper(callback, [context]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current
     // event (e.g. highlight an hovered label). That's why we update the label with

@@ -1,4 +1,5 @@
-import {isNullOrUndef, isObject} from 'chart.js-v3/helpers';
+import ChartJsV3 from 'chart.js-v3';
+const {isNullOrUndef, isObject} = ChartJsV3.helpers;
 
 var formatter = function(value) {
   if (isNullOrUndef(value)) {

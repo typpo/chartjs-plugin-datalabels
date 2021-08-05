@@ -1,4 +1,5 @@
-import {isNullOrUndef} from 'chart.js-v3/helpers';
+import ChartJsV3 from 'chart.js-v3';
+const {isNullOrUndef} = ChartJsV3.helpers;
 
 var devicePixelRatio = (function() {
   if (typeof window !== 'undefined') {

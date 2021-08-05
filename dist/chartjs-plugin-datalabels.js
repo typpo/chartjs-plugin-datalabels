@@ -5,10 +5,16 @@
  * Released under the MIT license
  */
 (function (global, factory) {
-typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('chart.js-v3/helpers'), require('chart.js-v3')) :
-typeof define === 'function' && define.amd ? define(['chart.js-v3/helpers', 'chart.js-v3'], factory) :
-(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ChartDataLabels = factory(global.helpers, global.chart_jsV3));
-}(this, (function (helpers, chart_jsV3) { 'use strict';
+typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('chart.js-v3')) :
+typeof define === 'function' && define.amd ? define(['chart.js-v3'], factory) :
+(global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.ChartDataLabels = factory(global.ChartJsV3));
+}(this, (function (ChartJsV3) { 'use strict';
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var ChartJsV3__default = /*#__PURE__*/_interopDefaultLegacy(ChartJsV3);
+
+const {isNullOrUndef: isNullOrUndef$2} = ChartJsV3__default['default'].helpers;
 
 var devicePixelRatio = (function() {
   if (typeof window !== 'undefined') {
@@ -41,7 +47,7 @@ var utils = {
         lines.unshift.apply(lines, input.split('\n'));
       } else if (Array.isArray(input)) {
         inputs.push.apply(inputs, input);
-      } else if (!helpers.isNullOrUndef(inputs)) {
+      } else if (!isNullOrUndef$2(inputs)) {
         lines.unshift('' + input);
       }
     }
@@ -355,6 +361,16 @@ var positioners = {
   }
 };
 
+const {
+  isNullOrUndef: isNullOrUndef$1,
+  merge: merge$2,
+  resolve,
+  toFont,
+  toPadding,
+  valueOrDefault
+} = ChartJsV3__default['default'].helpers;
+const callbackHelper$1 = ChartJsV3__default['default'].helpers.callback;
+
 var rasterize = utils.rasterize;
 
 function boundingRects(model) {
@@ -399,13 +415,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-  if (el instanceof chart_jsV3.ArcElement) {
+  if (el instanceof ChartJsV3.ArcElement) {
     return positioners.arc;
   }
-  if (el instanceof chart_jsV3.PointElement) {
+  if (el instanceof ChartJsV3.PointElement) {
     return positioners.point;
   }
-  if (el instanceof chart_jsV3.BarElement) {
+  if (el instanceof ChartJsV3.BarElement) {
     return positioners.bar;
   }
   return positioners.fallback;
@@ -579,42 +595,42 @@ var Label = function(config, ctx, el, index) {
   me._el = el;
 };
 
-helpers.merge(Label.prototype, {
+merge$2(Label.prototype, {
   /**
    * @private
    */
   _modelize: function(display, lines, config, context) {
     var me = this;
     var index = me._index;
-    var font = helpers.toFont(helpers.resolve([config.font, {}], context, index));
-    var color = helpers.resolve([config.color, chart_jsV3.defaults.color], context, index);
+    var font = toFont(resolve([config.font, {}], context, index));
+    var color = resolve([config.color, ChartJsV3.defaults.color], context, index);
 
     return {
-      align: helpers.resolve([config.align, 'center'], context, index),
-      anchor: helpers.resolve([config.anchor, 'center'], context, index),
+      align: resolve([config.align, 'center'], context, index),
+      anchor: resolve([config.anchor, 'center'], context, index),
       area: context.chart.chartArea,
-      backgroundColor: helpers.resolve([config.backgroundColor, null], context, index),
-      borderColor: helpers.resolve([config.borderColor, null], context, index),
-      borderRadius: helpers.resolve([config.borderRadius, 0], context, index),
-      borderWidth: helpers.resolve([config.borderWidth, 0], context, index),
-      clamp: helpers.resolve([config.clamp, false], context, index),
-      clip: helpers.resolve([config.clip, false], context, index),
+      backgroundColor: resolve([config.backgroundColor, null], context, index),
+      borderColor: resolve([config.borderColor, null], context, index),
+      borderRadius: resolve([config.borderRadius, 0], context, index),
+      borderWidth: resolve([config.borderWidth, 0], context, index),
+      clamp: resolve([config.clamp, false], context, index),
+      clip: resolve([config.clip, false], context, index),
       color: color,
       display: display,
       font: font,
       lines: lines,
-      offset: helpers.resolve([config.offset, 0], context, index),
-      opacity: helpers.resolve([config.opacity, 1], context, index),
+      offset: resolve([config.offset, 0], context, index),
+      opacity: resolve([config.opacity, 1], context, index),
       origin: getScaleOrigin(me._el, context),
-      padding: helpers.toPadding(helpers.resolve([config.padding, 0], context, index)),
+      padding: toPadding(resolve([config.padding, 0], context, index)),
       positioner: getPositioner(me._el),
-      rotation: helpers.resolve([config.rotation, 0], context, index) * (Math.PI / 180),
+      rotation: resolve([config.rotation, 0], context, index) * (Math.PI / 180),
       size: utils.textSize(me._ctx, lines, font),
-      textAlign: helpers.resolve([config.textAlign, 'start'], context, index),
-      textShadowBlur: helpers.resolve([config.textShadowBlur, 0], context, index),
-      textShadowColor: helpers.resolve([config.textShadowColor, color], context, index),
-      textStrokeColor: helpers.resolve([config.textStrokeColor, color], context, index),
-      textStrokeWidth: helpers.resolve([config.textStrokeWidth, 0], context, index)
+      textAlign: resolve([config.textAlign, 'start'], context, index),
+      textShadowBlur: resolve([config.textShadowBlur, 0], context, index),
+      textShadowColor: resolve([config.textShadowColor, color], context, index),
+      textStrokeColor: resolve([config.textStrokeColor, color], context, index),
+      textStrokeWidth: resolve([config.textStrokeWidth, 0], context, index)
     };
   },
 
@@ -628,12 +644,12 @@ helpers.merge(Label.prototype, {
 
     // We first resolve the display option (separately) to avoid computing
     // other options in case the label is hidden (i.e. display: false).
-    var display = helpers.resolve([config.display, true], context, index);
+    var display = resolve([config.display, true], context, index);
 
     if (display) {
       value = context.dataset.data[index];
-      label = helpers.valueOrDefault(helpers.callback(config.formatter, [value, context]), value);
-      lines = helpers.isNullOrUndef(label) ? [] : utils.toTextLines(label);
+      label = valueOrDefault(callbackHelper$1(config.formatter, [value, context]), value);
+      lines = isNullOrUndef$1(label) ? [] : utils.toTextLines(label);
 
       if (lines.length) {
         model = me._modelize(display, lines, config, context);
@@ -696,6 +712,8 @@ helpers.merge(Label.prototype, {
   }
 });
 
+const {merge: merge$1} = ChartJsV3__default['default'].helpers;
+
 var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
 var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
 
@@ -755,7 +773,7 @@ var HitBox = function() {
   };
 };
 
-helpers.merge(HitBox.prototype, {
+merge$1(HitBox.prototype, {
   center: function() {
     var r = this._rect;
     return {
@@ -1017,17 +1035,19 @@ var layout = {
   }
 };
 
+const {isNullOrUndef, isObject} = ChartJsV3__default['default'].helpers;
+
 var formatter = function(value) {
-  if (helpers.isNullOrUndef(value)) {
+  if (isNullOrUndef(value)) {
     return null;
   }
 
   var label = value;
   var keys, klen, k;
-  if (helpers.isObject(value)) {
-    if (!helpers.isNullOrUndef(value.label)) {
+  if (isObject(value)) {
+    if (!isNullOrUndef(value.label)) {
       label = value.label;
-    } else if (!helpers.isNullOrUndef(value.r)) {
+    } else if (!isNullOrUndef(value.r)) {
       label = value.r;
     } else {
       label = '';
@@ -1086,6 +1106,8 @@ var defaults = {
 /**
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
+const {each, merge} = ChartJsV3__default['default'].helpers;
+const callbackHelper = ChartJsV3__default['default'].helpers.callback;
 
 var EXPANDO_KEY = '$datalabels';
 var DEFAULT_KEY = '$default';
@@ -1103,7 +1125,7 @@ function configure(dataset, options) {
     override = {};
   }
 
-  options = helpers.merge({}, [options, override]);
+  options = merge({}, [options, override]);
   labels = options.labels || {};
   keys = Object.keys(labels);
   delete options.labels;
@@ -1111,7 +1133,7 @@ function configure(dataset, options) {
   if (keys.length) {
     keys.forEach(function(key) {
       if (labels[key]) {
-        configs.push(helpers.merge({}, [
+        configs.push(merge({}, [
           options,
           labels[key],
           {_key: key}
@@ -1125,7 +1147,7 @@ function configure(dataset, options) {
 
   // listeners: {<event-type>: {<label-key>: <fn>}}
   listeners = configs.reduce(function(target, config) {
-    helpers.each(config.listeners || {}, function(fn, event) {
+    each(config.listeners || {}, function(fn, event) {
       target[event] = target[event] || {};
       target[event][config._key || DEFAULT_KEY] = fn;
     });
@@ -1158,7 +1180,7 @@ function dispatchEvent(chart, listeners, label) {
     return;
   }
 
-  if (helpers.callback(callback, [context]) === true) {
+  if (callbackHelper(callback, [context]) === true) {
     // Users are allowed to tweak the given context by injecting values that can be
     // used in scriptable options to display labels differently based on the current
     // event (e.g. highlight an hovered label). That's why we update the label with
@@ -1285,7 +1307,7 @@ var plugin = {
 
     // Store listeners at the chart level and per event type to optimize
     // cases where no listeners are registered for a specific event.
-    helpers.merge(expando._listeners, config.listeners, {
+    merge(expando._listeners, config.listeners, {
       merger: function(event, target, source) {
         target[event] = target[event] || {};
         target[event][args.index] = source[event];

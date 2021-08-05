@@ -2,7 +2,9 @@
  * @see https://github.com/chartjs/Chart.js/issues/4176
  */
 
-import {callback as callbackHelper, each, merge} from 'chart.js-v3/helpers';
+import ChartJsV3 from 'chart.js-v3';
+const {each, merge} = ChartJsV3.helpers;
+const callbackHelper = ChartJsV3.helpers.callback;
 
 import Label from './label';
 import utils from './utils';

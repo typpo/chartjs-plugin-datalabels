@@ -1,13 +1,13 @@
-import {ArcElement, BarElement, defaults, PointElement} from 'chart.js-v3';
-import {
-  callback as callbackHelper,
+import ChartJsV3, {ArcElement, BarElement, defaults, PointElement} from 'chart.js-v3';
+const {
   isNullOrUndef,
   merge,
   resolve,
   toFont,
   toPadding,
   valueOrDefault
-} from 'chart.js-v3/helpers';
+} = ChartJsV3.helpers;
+const callbackHelper = ChartJsV3.helpers.callback;
 
 import utils from './utils';
 import positioners from './positioners';
