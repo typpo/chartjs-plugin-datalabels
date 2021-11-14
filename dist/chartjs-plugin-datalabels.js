@@ -415,13 +415,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-  if (el instanceof ChartJsV3.ArcElement) {
+  if (el.constructor.id === ChartJsV3.ArcElement.id) {
     return positioners.arc;
   }
-  if (el instanceof ChartJsV3.PointElement) {
+  if (el.constructor.id === ChartJsV3.PointElement.id) {
     return positioners.point;
   }
-  if (el instanceof ChartJsV3.BarElement) {
+  if (el.constructor.id === ChartJsV3.BarElement.id) {
     return positioners.bar;
   }
   return positioners.fallback;

@@ -407,13 +407,13 @@ function getScaleOrigin(el, context) {
 }
 
 function getPositioner(el) {
-  if (el instanceof ArcElement) {
+  if (el.constructor.id === ArcElement.id) {
     return positioners.arc;
   }
-  if (el instanceof PointElement) {
+  if (el.constructor.id === PointElement.id) {
     return positioners.point;
   }
-  if (el instanceof BarElement) {
+  if (el.constructor.id === BarElement.id) {
     return positioners.bar;
   }
   return positioners.fallback;
@@ -1365,4 +1365,4 @@ var plugin = {
   }
 };
 
-export { plugin as default };
+export default plugin;
